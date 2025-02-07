@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Ibenesh M-Score (8 Parameter)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-size: 1.2em;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            font-size: 1em;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Perhitungan Ibenesh M-Score (8 Parameter)</h1>
+
+    <div class="form-group">
+        <label for="x1">X1 (Days Sales in Receivables):</label>
+        <input type="number" id="x1" placeholder="Masukkan nilai X1" required>
+    </div>
+
+    <div class="form-group">
+        <label for="x2">X2 (Gross Margin):</label>
+        <input type="number" id="x2" placeholder="Masukkan nilai X2" required>
+    </div>
+
+    <div class="form-group">
+        <label for="x3">X3 (Asset Quality):</label>
+        <input type="number" id="x3" placeholder="Masukkan nilai X3" required>
+    </div>
+
+    <div class="form-group">
+        <label for="x4">X4 (Sales Growth):</label>
+        <input type="number" id="x4" placeholder="Masukkan nilai X4" required>
+    </div>
+
+    <div class="form-group">
+        <label for="x5">X5 (Leverage):</label>
+        <input type="number" id="x5" placeholder="Masukkan nilai X5" required>
+    </div>
+
+    <div class="form-group">
+        <label for="x6">X6 (Depreciation):</label>
+        <input type="number" id="x6" placeholder="Masukkan nilai X6" required>
+    </div>
+
+    <div class="form-group">
+        <label for="x7">X7 (Revenue Growth):</label>
+        <input type="number" id="x7" placeholder="Masukkan nilai X7" required>
+    </div>
+
+    <div class="form-group">
+        <label for="x8">X8 (Capital Expenditure):</label>
+        <input type="number" id="x8" placeholder="Masukkan nilai X8" required>
+    </div>
+
+    <button onclick="calculateMScore()">Hitung M-Score</button>
+
+    <div id="result" class="result"></div>
+
+    <script>
+        function calculateMScore() {
+            // Mengambil nilai input dari form
+            let x1 = parseFloat(document.getElementById("x1").value);
+            let x2 = parseFloat(document.getElementById("x2").value);
+            let x3 = parseFloat(document.getElementById("x3").value);
+            let x4 = parseFloat(document.getElementById("x4").value);
+            let x5 = parseFloat(document.getElementById("x5").value);
+            let x6 = parseFloat(document.getElementById("x6").value);
+            let x7 = parseFloat(document.getElementById("x7").value);
+            let x8 = parseFloat(document.getElementById("x8").value);
+
+            // Memastikan bahwa semua input valid
+            if (isNaN(x1) || isNaN(x2) || isNaN(x3) || isNaN(x4) || isNaN(x5) || isNaN(x6) || isNaN(x7) || isNaN(x8)) {
+                document.getElementById("result").innerText = "Harap masukkan semua nilai dengan benar.";
+                return;
+            }
+
+            // Rumus Ibenesh M-Score (berdasarkan nilai X1 hingga X8)
+            let mScore = 3.25 + (0.02 * x1) + (0.1 * x2) - (0.2 * x3) - (0.3 * x4) - (0.4 * x5) + (0.5 * x6) + (0.6 * x7) - (0.7 * x8);
+
+            // Menampilkan hasil
+            document.getElementById("result").innerText = "M-Score Anda adalah: " + mScore.toFixed(2);
+
+            // Menyampaikan hasil apakah perusahaan terindikasi manipulasi
+            if (mScore < -2.22) {
+                document.getElementById("result").innerText += "\nPerusahaan ini terindikasi melakukan manipulasi laporan keuangan.";
+            } else {
+                document.getElementById("result").innerText += "\nPerusahaan ini tidak terindikasi melakukan manipulasi laporan keuangan.";
+            }
+        }
+    </script>
+
+</body>
+</html>
